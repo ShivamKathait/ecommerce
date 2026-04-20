@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/user-service",
+  "private": true,
+  "main": "../../dist/apps/user-service/main.js",
+  "types": "../../dist/apps/user-service/main.d.ts"
+}

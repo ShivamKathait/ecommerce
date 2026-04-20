@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/apps/catalog-service",
+    "baseUrl": "../../",
+    "paths": {
+      "src/common/*": ["libs/shared/src/common/*"],
+      "src/*": ["apps/catalog-service/src/*"],
+      "@ecommerce/auth": ["libs/auth/src"],
+      "@ecommerce/contracts": ["libs/contracts/src"],
+      "@ecommerce/common-bootstrap": ["libs/common-bootstrap/src"],
+      "@ecommerce/common-config": ["libs/common-config/src"],
+      "@ecommerce/db": ["libs/db/src"],
+      "@ecommerce/shared/*": ["libs/shared/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["test", "**/*.spec.ts"]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "vendor-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/vendor-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nest build vendor-service"
+      },
+      "outputs": ["{workspaceRoot}/dist/apps/vendor-service"]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nest start vendor-service --watch"
+      }
+    },
+    "serve:prod": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "node dist/apps/vendor-service/main"
+      }
+    }
+  },
+  "tags": ["type:app", "scope:vendor"]
+}

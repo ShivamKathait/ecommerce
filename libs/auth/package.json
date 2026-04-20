@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/auth",
+  "private": true,
+  "main": "../../dist/libs/auth/index.js",
+  "types": "../../dist/libs/auth/index.d.ts"
+}

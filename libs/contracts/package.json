@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/contracts",
+  "private": true,
+  "main": "../../dist/libs/contracts/index.js",
+  "types": "../../dist/libs/contracts/index.d.ts"
+}

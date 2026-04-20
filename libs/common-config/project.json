@@ -1,0 +1,7 @@
+{
+  "name": "@ecommerce/common-config",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/common-config/src",
+  "projectType": "library",
+  "tags": ["type:lib", "scope:platform"]
+}

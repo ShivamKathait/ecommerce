@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/common-config",
+  "private": true,
+  "main": "../../dist/libs/common-config/index.js",
+  "types": "../../dist/libs/common-config/index.d.ts"
+}

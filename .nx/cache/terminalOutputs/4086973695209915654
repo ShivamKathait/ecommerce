@@ -1,0 +1,3 @@
+> nest build catalog-service
+
+Warning: command "nest build catalog-service" exited with non-zero status code

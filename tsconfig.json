@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "src/common/*": ["libs/shared/src/common/*"],
+      "@ecommerce/contracts": ["libs/contracts/src"],
+      "@ecommerce/common-bootstrap": ["libs/common-bootstrap/src"],
+      "@ecommerce/common-config": ["libs/common-config/src"],
+      "@ecommerce/auth": ["libs/auth/src"],
+      "@ecommerce/db": ["libs/db/src"],
+      "@ecommerce/shared/*": ["libs/shared/src/*"]
+    },
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false
+  }
+}

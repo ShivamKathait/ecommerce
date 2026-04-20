@@ -1,0 +1,29 @@
+{
+  "name": "catalog-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/catalog-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nest build catalog-service"
+      },
+      "outputs": ["{workspaceRoot}/dist/apps/catalog-service"]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nest start catalog-service --watch"
+      }
+    },
+    "serve:prod": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "node dist/apps/catalog-service/main"
+      }
+    }
+  },
+  "tags": ["type:app", "scope:catalog"]
+}

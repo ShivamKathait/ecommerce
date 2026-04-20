@@ -1,0 +1,7 @@
+{
+  "name": "@ecommerce/common-bootstrap",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/common-bootstrap/src",
+  "projectType": "library",
+  "tags": ["type:lib", "scope:platform"]
+}

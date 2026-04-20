@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/payment-service",
+  "private": true,
+  "main": "../../dist/apps/payment-service/main.js",
+  "types": "../../dist/apps/payment-service/main.d.ts"
+}

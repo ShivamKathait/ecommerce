@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/auth-service",
+  "private": true,
+  "main": "../../dist/apps/auth-service/main.js",
+  "types": "../../dist/apps/auth-service/main.d.ts"
+}

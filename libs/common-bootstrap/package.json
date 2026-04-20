@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/common-bootstrap",
+  "private": true,
+  "main": "../../dist/libs/common-bootstrap/index.js",
+  "types": "../../dist/libs/common-bootstrap/index.d.ts"
+}

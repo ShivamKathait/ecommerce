@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/catalog-service",
+  "private": true,
+  "main": "../../dist/apps/catalog-service/main.js",
+  "types": "../../dist/apps/catalog-service/main.d.ts"
+}

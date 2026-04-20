@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/vendor-service",
+  "private": true,
+  "main": "../../dist/apps/vendor-service/main.js",
+  "types": "../../dist/apps/vendor-service/main.d.ts"
+}

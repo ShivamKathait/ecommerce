@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/admin-service",
+  "private": true,
+  "main": "../../dist/apps/admin-service/main.js",
+  "types": "../../dist/apps/admin-service/main.d.ts"
+}

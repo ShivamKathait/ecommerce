@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/shared",
+  "private": true,
+  "main": "../../dist/libs/shared/index.js",
+  "types": "../../dist/libs/shared/index.d.ts"
+}

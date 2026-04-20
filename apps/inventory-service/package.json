@@ -1,0 +1,6 @@
+{
+  "name": "@ecommerce/inventory-service",
+  "private": true,
+  "main": "../../dist/apps/inventory-service/main.js",
+  "types": "../../dist/apps/inventory-service/main.d.ts"
+}
