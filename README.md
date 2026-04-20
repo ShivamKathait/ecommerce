@@ -12,6 +12,7 @@ apps/
   catalog-service/     Product/catalog domain
   inventory-service/   Inventory/stock domain
   payment-service/     Stripe and payment domain
+  order-service/       Checkout orchestration and order lifecycle
 libs/
   auth/                Shared auth module, guards, decorators, strategies, auth service
   db/                  Shared TypeORM datasource factory
@@ -30,6 +31,7 @@ libs/
 - `catalog-service`: products and catalog APIs
 - `inventory-service`: inventory and stock APIs, now using `product_id` only
 - `payment-service`: Stripe customers, connect accounts, onboarding links, payment boundary
+- `order-service`: multi-product checkout orchestration (reserve/confirm/release) and order APIs
 
 ## Tech Stack
 
@@ -37,6 +39,7 @@ libs/
 - **Monorepo Tooling**: [Nx](https://nx.dev/)
 - **ORM**: [TypeORM](https://typeorm.io/)
 - **Database**: PostgreSQL
+- **Messaging**: RabbitMQ (events + retries + DLQ)
 - **Authentication**: JWT, Passport, service-shared auth library
 - **Config**: @nestjs/config
 - **Validation**: class-validator, class-transformer
@@ -50,7 +53,7 @@ libs/
 - Node.js (v18 or higher)
 - npm or yarn
 - PostgreSQL (v12 or higher)
-- Docker (optional, for database setup)
+- Docker (optional, for local infrastructure setup)
 
 ## Installation
 
@@ -99,7 +102,9 @@ libs/
 - `libs/shared`
   - shared entities
   - enums and interfaces
-  - shared payment client
+  - shared service clients (`auth`, `catalog`, `inventory`, `payment`)
+  - shared RabbitMQ client helper
+  - shared request logging interceptor
   - shared error-handler
 - `libs/common-config`
   - service URLs and default ports
@@ -118,6 +123,19 @@ This repository includes a practical production-readiness starter kit:
 - CI validation via [ci.yml](/home/shivam/personal/ecommerce/.github/workflows/ci.yml)
 - centralized migration folders under `libs/db/migrations/<service-name>`
 - shared health/readiness payloads and startup logging in [index.ts](/home/shivam/personal/ecommerce/libs/common-bootstrap/src/index.ts)
+- request-level observability interceptor with request-id + latency logs
+- RabbitMQ exchange routing with retry and dead-letter queue support in shared messaging client
+
+## Payment And Order Event Flow
+
+Current checkout/payment orchestration is event-driven:
+
+1. `order-service` creates a pending order and Stripe payment intent.
+2. `payment-service` handles Stripe webhooks and stores payment history (`payment_history` table).
+3. `payment-service` publishes normalized payment events to RabbitMQ.
+4. `order-service` consumes payment events idempotently (`processed_events` table).
+5. `order-service` confirms or fails/cancels orders asynchronously.
+6. `order-service` uses internal inventory endpoints (token-guarded) to confirm/release reservations without end-user JWT context.
 
 ## Nx Workspace
 
@@ -155,6 +173,7 @@ npm run start:catalog
 npm run start:inventory
 npm run start:vendor
 npm run start:payment
+npm run start:order
 ```
 
 Default local ports:
@@ -166,6 +185,7 @@ Default local ports:
 - `payment-service`: `3006`
 - `admin-service`: `3007`
 - `auth-service`: `3008`
+- `order-service`: `3009`
 
 Health endpoints exposed by every service:
 
@@ -185,6 +205,7 @@ Recommended edge routing ownership:
 - `/v1/product` -> `catalog-service`
 - `/v1/inventory` -> `inventory-service`
 - `/v1/payment` -> `payment-service`
+- `/v1/orders` -> `order-service`
 
 Your external server or reverse proxy should handle this routing.
 
@@ -201,18 +222,23 @@ Your external server or reverse proxy should handle this routing.
 - `npm run build:inventory` - Build `inventory-service`
 - `npm run build:vendor` - Build `vendor-service`
 - `npm run build:payment` - Build `payment-service`
+- `npm run build:order` - Build `order-service`
 - `npm run migration:run:auth` - Run auth-service migrations
 - `npm run migration:run:admin` - Run admin-service migrations
 - `npm run migration:run:user` - Run user-service migrations
 - `npm run migration:run:vendor` - Run vendor-service migrations
 - `npm run migration:run:catalog` - Run catalog-service migrations
 - `npm run migration:run:inventory` - Run inventory-service migrations
+- `npm run migration:run:order` - Run order-service migrations
+- `npm run migration:run:payment` - Run payment-service migrations
 - `npm run migration:revert:auth` - Revert auth-service migration
 - `npm run migration:revert:admin` - Revert admin-service migration
 - `npm run migration:revert:user` - Revert user-service migration
 - `npm run migration:revert:vendor` - Revert vendor-service migration
 - `npm run migration:revert:catalog` - Revert catalog-service migration
 - `npm run migration:revert:inventory` - Revert inventory-service migration
+- `npm run migration:revert:order` - Revert order-service migration
+- `npm run migration:revert:payment` - Revert payment-service migration
 - `npm run start:auth` - Start `auth-service`
 - `npm run start:admin` - Start `admin-service`
 - `npm run start:user` - Start `user-service`
@@ -220,6 +246,7 @@ Your external server or reverse proxy should handle this routing.
 - `npm run start:inventory` - Start `inventory-service`
 - `npm run start:vendor` - Start `vendor-service`
 - `npm run start:payment` - Start `payment-service`
+- `npm run start:order` - Start `order-service`
 - `npm run test` - Run tests
 - `npm run lint` - Lint the code
 
@@ -235,6 +262,7 @@ This starts:
 
 - PostgreSQL
 - Redis
+- RabbitMQ (AMQP + management UI)
 - `auth-service`
 - `admin-service`
 - `user-service`
@@ -242,6 +270,7 @@ This starts:
 - `catalog-service`
 - `inventory-service`
 - `payment-service`
+- `order-service`
 
 ## Current Platform State
 
@@ -255,15 +284,20 @@ This starts:
 - Shared auth is in `libs/auth`.
 - Shared datasource construction is in `libs/db`.
 - Shared common and error-handler modules are in `libs/shared`.
+- `payment-service` persists webhook payment history.
+- `order-service` consumes payment events idempotently and finalizes orders asynchronously.
 
 ## Important Notes
 
 - `catalog-service` is the product owner.
 - `inventory-service` no longer carries a duplicated `Product` entity and now uses `product_id` directly.
+- `inventory-service` also exposes internal reservation confirm/release/reserve routes guarded by `INTERNAL_SERVICE_TOKEN`.
 - Extracted services no longer keep duplicate local `common` or `error-handler` folders.
 - `auth-service` now exists as a real app, and reusable auth code lives in `libs/auth`.
 - Edge routing still needs to be implemented on your actual server or reverse proxy.
-- Migration folders are ready, but real migration files still need to be written as schemas evolve.
+- Order and payment migrations now include event/idempotency related tables:
+  - `payment_history` in `payment-service`
+  - `processed_events` in `order-service`
 
 ## Testing
 

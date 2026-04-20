@@ -367,6 +367,69 @@
         "implicitDependencies": []
       }
     },
+    "order-service": {
+      "name": "order-service",
+      "type": "app",
+      "data": {
+        "root": "apps/order-service",
+        "name": "order-service",
+        "projectType": "application",
+        "tags": [
+          "npm:private",
+          "type:app",
+          "scope:order"
+        ],
+        "metadata": {
+          "targetGroups": {},
+          "js": {
+            "packageName": "@ecommerce/order-service",
+            "packageMain": "../../dist/apps/order-service/main.js",
+            "isInPackageManagerWorkspaces": true
+          }
+        },
+        "targets": {
+          "build": {
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "nest build order-service"
+            },
+            "outputs": [
+              "{workspaceRoot}/dist/apps/order-service"
+            ],
+            "configurations": {},
+            "parallelism": true,
+            "cache": true,
+            "inputs": [
+              "production",
+              "^production"
+            ]
+          },
+          "serve": {
+            "executor": "nx:run-commands",
+            "options": {
+              "command": "nest start order-service --watch"
+            },
+            "configurations": {},
+            "parallelism": true,
+            "cache": false
+          },
+          "serve:prod": {
+            "executor": "nx:run-commands",
+            "dependsOn": [
+              "build"
+            ],
+            "options": {
+              "command": "node dist/apps/order-service/main"
+            },
+            "configurations": {},
+            "parallelism": true
+          }
+        },
+        "$schema": "../../node_modules/nx/schemas/project-schema.json",
+        "sourceRoot": "apps/order-service/src",
+        "implicitDependencies": []
+      }
+    },
     "auth-service": {
       "name": "auth-service",
       "type": "app",
@@ -3218,6 +3281,15 @@
         "hash": "sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw=="
       }
     },
+    "npm:@types/amqplib": {
+      "type": "npm",
+      "name": "npm:@types/amqplib",
+      "data": {
+        "version": "0.10.8",
+        "packageName": "@types/amqplib",
+        "hash": "sha512-vtDp8Pk1wsE/AuQ8/Rgtm6KUZYqcnTgNvEHwzCkX8rL7AGsC6zqAfKAAJhUZXFhM/Pp++tbnUHiam/8vVpPztA=="
+      }
+    },
     "npm:@types/babel__core": {
       "type": "npm",
       "name": "npm:@types/babel__core",
@@ -4073,6 +4145,15 @@
         "hash": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ=="
       }
     },
+    "npm:amqplib": {
+      "type": "npm",
+      "name": "npm:amqplib",
+      "data": {
+        "version": "1.0.3",
+        "packageName": "amqplib",
+        "hash": "sha512-nsrXa59tvX4HPjPPW8JJGuBb/Db0MOq3DOhGdSbIY7bTsQDMV2fmF9c3i74g/8Gt9+QWyrxfEPppOOoV9lK1uQ=="
+      }
+    },
     "npm:ansi-align": {
       "type": "npm",
       "name": "npm:ansi-align",
@@ -4548,6 +4629,15 @@
         "version": "1.1.2",
         "packageName": "buffer-from",
         "hash": "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="
+      }
+    },
+    "npm:buffer-more-ints": {
+      "type": "npm",
+      "name": "npm:buffer-more-ints",
+      "data": {
+        "version": "1.0.0",
+        "packageName": "buffer-more-ints",
+        "hash": "sha512-EMetuGFz5SLsT0QTnXzINh4Ksr+oo4i+UGTXEshiGCQWnsgSs7ZhJ8fzlwQ+OzEMs0MpDAMr1hxnblp5a4vcHg=="
       }
     },
     "npm:busboy": {
@@ -9401,6 +9491,7 @@
     "vendor-service": [],
     "@ecommerce/common-config": [],
     "admin-service": [],
+    "order-service": [],
     "auth-service": [],
     "user-service": [],
     "@ecommerce/contracts": [],
@@ -12693,6 +12784,13 @@
         "type": "static"
       }
     ],
+    "npm:@types/amqplib": [
+      {
+        "source": "npm:@types/amqplib",
+        "target": "npm:@types/node",
+        "type": "static"
+      }
+    ],
     "npm:@types/babel__core": [
       {
         "source": "npm:@types/babel__core",
@@ -13784,6 +13882,13 @@
       {
         "source": "npm:ajv-keywords",
         "target": "npm:ajv",
+        "type": "static"
+      }
+    ],
+    "npm:amqplib": [
+      {
+        "source": "npm:amqplib",
+        "target": "npm:buffer-more-ints",
         "type": "static"
       }
     ],
@@ -19999,5 +20104,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1776662400861
+  "computedAt": 1776681081166
 }

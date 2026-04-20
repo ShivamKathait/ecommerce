@@ -51,12 +51,5 @@ export class AuthApiController {
   loginVendor(@Body() dto: LoginDto) {
     return this.authApiService.loginVendor(dto);
   }
-
-  @Patch('users/:id/role')
-  @UseGuards(InternalServiceGuard)
-  @ApiOperation({ summary: 'Update User Role Api' })
-  updateUserRole(@Req() req, @Body() dto: UpdateRoleDto) {
-    const userId = Number(req.params.id);
-    return this.authApiService.updateUserRole(userId, dto.role);
-  }
+  
 }

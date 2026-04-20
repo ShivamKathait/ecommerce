@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 @Entity({ name: 'product' })
@@ -19,6 +20,10 @@ export class Product {
 
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
+
+  @Column({ type: 'int' })
+  @Index('idx_product_vendor_id')
+  vendor_id: number;
 
   @Column({ default: true })
   is_active: boolean;

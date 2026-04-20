@@ -1,7 +1,2 @@
-export interface Query {
-  [key: string]: string | number | boolean;
-}
-
-export interface Update {
-  [key: string]: string | number | boolean;
-}
+export type Query = Record<string, string | number | boolean>;
+export type Update = Query;

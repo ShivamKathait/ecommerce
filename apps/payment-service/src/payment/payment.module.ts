@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { StripeModule } from '@golevelup/nestjs-stripe';
-import { join } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { PaymentController } from './payment.controller';
 import { PaymentService } from './payment.service';
+import { InternalServiceGuard } from './guards/internal-service.guard';
+import { PaymentHistory } from './entities/payment-history.entity';
+import { RabbitMqClientService } from 'src/common/services/rabbitmq-client.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: [join(process.cwd(), 'apps/payment-service/.env'), '.env'],
-    }),
+    ConfigModule,
+    TypeOrmModule.forFeature([PaymentHistory]),
     StripeModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -25,12 +26,33 @@ import { PaymentService } from './payment.service';
         return {
           apiKey,
           apiVersion: '2025-12-15.clover' as const,
+          webhookConfig: {
+            stripeSecrets: {
+              account: configService.get<string>(
+                'STRIPE_WEBHOOK_SECRET_ACCOUNT',
+                '',
+              ),
+              accountTest: configService.get<string>(
+                'STRIPE_WEBHOOK_SECRET_ACCOUNT',
+                '',
+              ),
+              connect: configService.get<string>(
+                'STRIPE_WEBHOOK_SECRET_CONNECT',
+                '',
+              ),
+              connectTest: configService.get<string>(
+                'STRIPE_WEBHOOK_SECRET_CONNECT',
+                '',
+              ),
+            },
+            requestBodyProperty: 'rawBody',
+          },
         };
       },
     }),
   ],
   controllers: [PaymentController],
-  providers: [PaymentService],
+  providers: [PaymentService, InternalServiceGuard, RabbitMqClientService],
   exports: [PaymentService],
 })
 export class PaymentModule {}

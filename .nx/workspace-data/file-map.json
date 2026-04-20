@@ -27,74 +27,162 @@
   "nxJsonPlugins": [],
   "fileMap": {
     "projectFileMap": {
-      "vendor-service": [
+      "order-service": [
         {
-          "file": "apps/vendor-service/.env.example",
-          "hash": "5444680841465896708"
+          "file": "apps/order-service/.env.example",
+          "hash": "8316638758118154875"
         },
         {
-          "file": "apps/vendor-service/package.json",
-          "hash": "14641109766791855117"
+          "file": "apps/order-service/package.json",
+          "hash": "17672183510774746823"
         },
         {
-          "file": "apps/vendor-service/project.json",
-          "hash": "17317415789064070428"
+          "file": "apps/order-service/project.json",
+          "hash": "10258061785907002598"
         },
         {
-          "file": "apps/vendor-service/src/app.controller.ts",
-          "hash": "15462197264890283687"
+          "file": "apps/order-service/src/app.controller.ts",
+          "hash": "2015187771535016313"
         },
         {
-          "file": "apps/vendor-service/src/app.module.ts",
-          "hash": "13156540999345203209"
+          "file": "apps/order-service/src/app.module.ts",
+          "hash": "4085370088138872290"
         },
         {
-          "file": "apps/vendor-service/src/data-source.ts",
-          "hash": "3764287776544566708"
+          "file": "apps/order-service/src/data-source.ts",
+          "hash": "10794351886286457483"
         },
         {
-          "file": "apps/vendor-service/src/main.ts",
-          "hash": "7768481605627983559"
+          "file": "apps/order-service/src/main.ts",
+          "hash": "17538505041215046694"
         },
         {
-          "file": "apps/vendor-service/src/vendors/dto/create-vendor.dto.ts",
-          "hash": "1728338247852957937"
+          "file": "apps/order-service/src/orders/dto/checkout.dto.ts",
+          "hash": "17310686975687216702"
         },
         {
-          "file": "apps/vendor-service/src/vendors/dto/login.dto.ts",
-          "hash": "4280499064597402518"
+          "file": "apps/order-service/src/orders/dto/confirm-order.dto.ts",
+          "hash": "4853505819809556785"
         },
         {
-          "file": "apps/vendor-service/src/vendors/dto/response.dto.ts",
-          "hash": "14811498759707590125"
+          "file": "apps/order-service/src/orders/dto/list-orders.dto.ts",
+          "hash": "17170329368697507474"
         },
         {
-          "file": "apps/vendor-service/src/vendors/entities/vendor-profile.entity.ts",
-          "hash": "3019514908248078391"
+          "file": "apps/order-service/src/orders/entities/order-item.entity.ts",
+          "hash": "12342185620265967064"
         },
         {
-          "file": "apps/vendor-service/src/vendors/vendors.controller.spec.ts",
-          "hash": "17632260507282712015"
+          "file": "apps/order-service/src/orders/entities/order.entity.ts",
+          "hash": "2893940913410096125"
         },
         {
-          "file": "apps/vendor-service/src/vendors/vendors.controller.ts",
-          "hash": "5399071697181228261"
+          "file": "apps/order-service/src/orders/entities/processed-event.entity.ts",
+          "hash": "12241399387446351764"
         },
         {
-          "file": "apps/vendor-service/src/vendors/vendors.module.ts",
-          "hash": "4973983970431252323"
+          "file": "apps/order-service/src/orders/orders.controller.ts",
+          "hash": "11359962531602747765"
         },
         {
-          "file": "apps/vendor-service/src/vendors/vendors.service.spec.ts",
-          "hash": "7306166017423015586"
+          "file": "apps/order-service/src/orders/orders.module.ts",
+          "hash": "17156284722593251485"
         },
         {
-          "file": "apps/vendor-service/src/vendors/vendors.service.ts",
-          "hash": "9380752919235739833"
+          "file": "apps/order-service/src/orders/orders.service.ts",
+          "hash": "6101067753149252264"
         },
         {
-          "file": "apps/vendor-service/tsconfig.app.json",
-          "hash": "13603567910914431119"
+          "file": "apps/order-service/src/orders/payment-events.consumer.ts",
+          "hash": "7206675349260475661"
+        },
+        {
+          "file": "apps/order-service/tsconfig.app.json",
+          "hash": "167704010626359555"
+        }
+      ],
+      "@ecommerce/common-config": [
+        {
+          "file": "libs/common-config/package.json",
+          "hash": "15466056489644689421"
+        },
+        {
+          "file": "libs/common-config/project.json",
+          "hash": "554015020472967651"
+        },
+        {
+          "file": "libs/common-config/src/index.ts",
+          "hash": "1374394954629830618"
+        }
+      ],
+      "@ecommerce/shared": [
+        {
+          "file": "libs/shared/package.json",
+          "hash": "176870083833863074"
+        },
+        {
+          "file": "libs/shared/project.json",
+          "hash": "13356364395781250008"
+        },
+        {
+          "file": "libs/shared/src/common/entities/session.entity.ts",
+          "hash": "4640030883876035381"
+        },
+        {
+          "file": "libs/shared/src/common/entities/user.entity.ts",
+          "hash": "2326490939658742539"
+        },
+        {
+          "file": "libs/shared/src/common/interceptors/request-logging.interceptor.ts",
+          "hash": "5983470709242027882"
+        },
+        {
+          "file": "libs/shared/src/common/interface.ts",
+          "hash": "13884941157575440957"
+        },
+        {
+          "file": "libs/shared/src/common/rate-limit.guard.ts",
+          "hash": "14762584989768604463"
+        },
+        {
+          "file": "libs/shared/src/common/services/auth-client.service.ts",
+          "hash": "17994121712627732050"
+        },
+        {
+          "file": "libs/shared/src/common/services/catalog-client.service.ts",
+          "hash": "5232848739655289724"
+        },
+        {
+          "file": "libs/shared/src/common/services/internal-service-headers.util.ts",
+          "hash": "14062243370470272926"
+        },
+        {
+          "file": "libs/shared/src/common/services/inventory-client.service.ts",
+          "hash": "13099429214214415845"
+        },
+        {
+          "file": "libs/shared/src/common/services/payment-client.service.ts",
+          "hash": "16170535412150831266"
+        },
+        {
+          "file": "libs/shared/src/common/services/rabbitmq-client.service.ts",
+          "hash": "10856325496772159960"
+        },
+        {
+          "file": "libs/shared/src/common/utils.ts",
+          "hash": "11661770495986354603"
+        },
+        {
+          "file": "libs/shared/src/error-handler/error-service.ts",
+          "hash": "13031278943017023204"
+        },
+        {
+          "file": "libs/shared/src/error-handler/handler.services.ts",
+          "hash": "15719589176889471969"
+        },
+        {
+          "file": "libs/shared/src/index.ts",
+          "hash": "1807657306387096168"
         }
       ],
       "catalog-service": [
@@ -132,7 +220,7 @@
         },
         {
           "file": "apps/catalog-service/src/product/dto/listing.dto.ts",
-          "hash": "5847644390007436551"
+          "hash": "8350907994683224296"
         },
         {
           "file": "apps/catalog-service/src/product/dto/update-product.dto.ts",
@@ -140,11 +228,11 @@
         },
         {
           "file": "apps/catalog-service/src/product/entities/product.entity.ts",
-          "hash": "2339929471135749583"
+          "hash": "5302032545985384527"
         },
         {
           "file": "apps/catalog-service/src/product/product.controller.ts",
-          "hash": "6466366234072247034"
+          "hash": "18293645565604706922"
         },
         {
           "file": "apps/catalog-service/src/product/product.module.ts",
@@ -156,407 +244,85 @@
         },
         {
           "file": "apps/catalog-service/src/product/product.service.ts",
-          "hash": "10841357226276519020"
+          "hash": "9631578315849925859"
         },
         {
           "file": "apps/catalog-service/tsconfig.app.json",
           "hash": "3195812671624053147"
         }
       ],
-      "@ecommerce/shared": [
+      "vendor-service": [
         {
-          "file": "libs/shared/package.json",
-          "hash": "176870083833863074"
+          "file": "apps/vendor-service/.env.example",
+          "hash": "5444680841465896708"
         },
         {
-          "file": "libs/shared/project.json",
-          "hash": "13356364395781250008"
+          "file": "apps/vendor-service/package.json",
+          "hash": "14641109766791855117"
         },
         {
-          "file": "libs/shared/src/common/entities/session.entity.ts",
-          "hash": "4640030883876035381"
+          "file": "apps/vendor-service/project.json",
+          "hash": "17317415789064070428"
         },
         {
-          "file": "libs/shared/src/common/entities/user.entity.ts",
-          "hash": "2326490939658742539"
+          "file": "apps/vendor-service/src/app.controller.ts",
+          "hash": "15462197264890283687"
         },
         {
-          "file": "libs/shared/src/common/interface.ts",
-          "hash": "16048077614865384217"
+          "file": "apps/vendor-service/src/app.module.ts",
+          "hash": "13156540999345203209"
         },
         {
-          "file": "libs/shared/src/common/jwt-payload.interface.ts",
-          "hash": "11308954828642393195"
+          "file": "apps/vendor-service/src/data-source.ts",
+          "hash": "3764287776544566708"
         },
         {
-          "file": "libs/shared/src/common/pagination.dto.ts",
-          "hash": "5772249179177311491"
+          "file": "apps/vendor-service/src/main.ts",
+          "hash": "7768481605627983559"
         },
         {
-          "file": "libs/shared/src/common/rate-limit.guard.ts",
-          "hash": "14762584989768604463"
+          "file": "apps/vendor-service/src/vendors/dto/create-vendor.dto.ts",
+          "hash": "1728338247852957937"
         },
         {
-          "file": "libs/shared/src/common/services/auth-client.service.ts",
-          "hash": "7037468143511023979"
+          "file": "apps/vendor-service/src/vendors/dto/list-vendors.dto.ts",
+          "hash": "12891014125163433286"
         },
         {
-          "file": "libs/shared/src/common/services/payment-client.service.ts",
-          "hash": "17769477701627274768"
+          "file": "apps/vendor-service/src/vendors/dto/login.dto.ts",
+          "hash": "4280499064597402518"
         },
         {
-          "file": "libs/shared/src/common/utils.ts",
-          "hash": "11661770495986354603"
+          "file": "apps/vendor-service/src/vendors/dto/response.dto.ts",
+          "hash": "14811498759707590125"
         },
         {
-          "file": "libs/shared/src/error-handler/error-service.ts",
-          "hash": "14386501576822377202"
+          "file": "apps/vendor-service/src/vendors/entities/vendor-profile.entity.ts",
+          "hash": "3019514908248078391"
         },
         {
-          "file": "libs/shared/src/error-handler/handler.services.ts",
-          "hash": "15719589176889471969"
+          "file": "apps/vendor-service/src/vendors/vendors.controller.spec.ts",
+          "hash": "17632260507282712015"
         },
         {
-          "file": "libs/shared/src/index.ts",
-          "hash": "4595979742548113990"
-        }
-      ],
-      "admin-service": [
-        {
-          "file": "apps/admin-service/.env.example",
-          "hash": "17420515244798984181"
-        },
-        {
-          "file": "apps/admin-service/package.json",
-          "hash": "1598835702245378102"
-        },
-        {
-          "file": "apps/admin-service/project.json",
-          "hash": "18070998762830544398"
-        },
-        {
-          "file": "apps/admin-service/src/admin/admin.controller.ts",
-          "hash": "6721632718363350356"
-        },
-        {
-          "file": "apps/admin-service/src/admin/admin.module.ts",
-          "hash": "16095099427891812892"
-        },
-        {
-          "file": "apps/admin-service/src/admin/admin.service.ts",
-          "hash": "2168887150333833097"
-        },
-        {
-          "file": "apps/admin-service/src/admin/dto/create-admin.dto.ts",
-          "hash": "14919260274426552537"
-        },
-        {
-          "file": "apps/admin-service/src/admin/dto/response.dto.ts",
-          "hash": "16015635727369269654"
-        },
-        {
-          "file": "apps/admin-service/src/app.controller.ts",
-          "hash": "10459688243998407424"
-        },
-        {
-          "file": "apps/admin-service/src/app.module.ts",
-          "hash": "8047365375576677964"
-        },
-        {
-          "file": "apps/admin-service/src/data-source.ts",
-          "hash": "3809038660621317577"
-        },
-        {
-          "file": "apps/admin-service/src/main.ts",
-          "hash": "4769145993336647055"
-        },
-        {
-          "file": "apps/admin-service/tsconfig.app.json",
-          "hash": "15171038887364736435"
-        }
-      ],
-      "inventory-service": [
-        {
-          "file": "apps/inventory-service/.env.example",
-          "hash": "7716920658119757283"
-        },
-        {
-          "file": "apps/inventory-service/package.json",
-          "hash": "11327504200090108942"
-        },
-        {
-          "file": "apps/inventory-service/project.json",
-          "hash": "6086091167404108881"
-        },
-        {
-          "file": "apps/inventory-service/src/app.controller.ts",
-          "hash": "2598764785184359869"
-        },
-        {
-          "file": "apps/inventory-service/src/app.module.ts",
-          "hash": "14605049906572849328"
-        },
-        {
-          "file": "apps/inventory-service/src/data-source.ts",
-          "hash": "16757985900197994845"
-        },
-        {
-          "file": "apps/inventory-service/src/inventory/dto/update-inventory.dto.ts",
-          "hash": "15227327533422186965"
-        },
-        {
-          "file": "apps/inventory-service/src/inventory/entities/inventory.entity.ts",
-          "hash": "12279579811129812187"
-        },
-        {
-          "file": "apps/inventory-service/src/inventory/inventory.controller.ts",
-          "hash": "5065818391389124445"
-        },
-        {
-          "file": "apps/inventory-service/src/inventory/inventory.module.ts",
-          "hash": "16798002258159446617"
-        },
-        {
-          "file": "apps/inventory-service/src/inventory/inventory.service.ts",
-          "hash": "4691755905053477738"
-        },
-        {
-          "file": "apps/inventory-service/src/main.ts",
-          "hash": "6014552830184229511"
-        },
-        {
-          "file": "apps/inventory-service/tsconfig.app.json",
-          "hash": "6509516154862497086"
-        }
-      ],
-      "auth-service": [
-        {
-          "file": "apps/auth-service/.env.example",
-          "hash": "2302786882701934816"
-        },
-        {
-          "file": "apps/auth-service/package.json",
-          "hash": "2248069076141705586"
-        },
-        {
-          "file": "apps/auth-service/project.json",
-          "hash": "6084817507413527756"
-        },
-        {
-          "file": "apps/auth-service/src/app.controller.ts",
-          "hash": "16052496669129028247"
-        },
-        {
-          "file": "apps/auth-service/src/app.module.ts",
-          "hash": "9666139847311730695"
-        },
-        {
-          "file": "apps/auth-service/src/auth/auth.controller.ts",
-          "hash": "12536587847023486521"
-        },
-        {
-          "file": "apps/auth-service/src/auth/auth.module.ts",
-          "hash": "12793310696633273970"
-        },
-        {
-          "file": "apps/auth-service/src/auth/auth.service.ts",
-          "hash": "9207918087903465949"
-        },
-        {
-          "file": "apps/auth-service/src/auth/dto/auth.dto.ts",
-          "hash": "17822225927354789988"
-        },
-        {
-          "file": "apps/auth-service/src/auth/dto/response.dto.ts",
-          "hash": "16858451350946949810"
-        },
-        {
-          "file": "apps/auth-service/src/auth/guards/internal-service.guard.ts",
-          "hash": "12815592423044536385"
+          "file": "apps/vendor-service/src/vendors/vendors.controller.ts",
+          "hash": "9803438924132940667"
         },
         {
-          "file": "apps/auth-service/src/data-source.ts",
-          "hash": "4772652629038375335"
+          "file": "apps/vendor-service/src/vendors/vendors.module.ts",
+          "hash": "4973983970431252323"
         },
-        {
-          "file": "apps/auth-service/src/main.ts",
-          "hash": "4981472035311064588"
-        },
-        {
-          "file": "apps/auth-service/tsconfig.app.json",
-          "hash": "581202081415130236"
-        }
-      ],
-      "@ecommerce/contracts": [
-        {
-          "file": "libs/contracts/package.json",
-          "hash": "5308797434166471113"
-        },
-        {
-          "file": "libs/contracts/project.json",
-          "hash": "15103688834620153017"
-        },
-        {
-          "file": "libs/contracts/src/index.ts",
-          "hash": "2857731941122367897"
-        }
-      ],
-      "@ecommerce/common-config": [
-        {
-          "file": "libs/common-config/package.json",
-          "hash": "15466056489644689421"
-        },
-        {
-          "file": "libs/common-config/project.json",
-          "hash": "554015020472967651"
-        },
-        {
-          "file": "libs/common-config/src/index.ts",
-          "hash": "6981988410060935981"
-        }
-      ],
-      "payment-service": [
-        {
-          "file": "apps/payment-service/.env.example",
-          "hash": "1065101574934911968"
-        },
-        {
-          "file": "apps/payment-service/package.json",
-          "hash": "3489300269708804475"
-        },
-        {
-          "file": "apps/payment-service/project.json",
-          "hash": "4418434789340242824"
-        },
-        {
-          "file": "apps/payment-service/src/app.controller.ts",
-          "hash": "5272001962360948587"
-        },
-        {
-          "file": "apps/payment-service/src/app.module.ts",
-          "hash": "3145794821243595318"
-        },
-        {
-          "file": "apps/payment-service/src/main.ts",
-          "hash": "3727008028035511514"
-        },
-        {
-          "file": "apps/payment-service/src/payment/dto/create-connect-account.dto.ts",
-          "hash": "6954673519234712385"
-        },
-        {
-          "file": "apps/payment-service/src/payment/dto/create-customer.dto.ts",
-          "hash": "12816570116256886464"
-        },
-        {
-          "file": "apps/payment-service/src/payment/dto/create-onboarding-link.dto.ts",
-          "hash": "369926423706581145"
-        },
-        {
-          "file": "apps/payment-service/src/payment/payment.controller.ts",
-          "hash": "12939624728578544536"
-        },
-        {
-          "file": "apps/payment-service/src/payment/payment.module.ts",
-          "hash": "9695799565340132209"
-        },
-        {
-          "file": "apps/payment-service/src/payment/payment.service.ts",
-          "hash": "16369883159514048211"
-        },
-        {
-          "file": "apps/payment-service/tsconfig.app.json",
-          "hash": "14252926812005709935"
-        }
-      ],
-      "user-service": [
-        {
-          "file": "apps/user-service/.env.example",
-          "hash": "11555553749132587263"
-        },
-        {
-          "file": "apps/user-service/package.json",
-          "hash": "7680394324882868849"
-        },
-        {
-          "file": "apps/user-service/project.json",
-          "hash": "4143710373474399420"
-        },
-        {
-          "file": "apps/user-service/src/app.controller.ts",
-          "hash": "10797490931809833569"
-        },
-        {
-          "file": "apps/user-service/src/app.module.ts",
-          "hash": "8290534881408086749"
-        },
-        {
-          "file": "apps/user-service/src/data-source.ts",
-          "hash": "5408998813255339730"
-        },
-        {
-          "file": "apps/user-service/src/main.ts",
-          "hash": "11846084390572607864"
-        },
-        {
-          "file": "apps/user-service/tsconfig.app.json",
-          "hash": "13994704626357194330"
-        }
-      ],
-      "@ecommerce/db": [
-        {
-          "file": "libs/db/migrations/admin-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/migrations/auth-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/migrations/catalog-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/migrations/inventory-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/migrations/payment-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/migrations/user-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/migrations/vendor-service/.gitkeep",
-          "hash": "4055606894390288348"
-        },
-        {
-          "file": "libs/db/package.json",
-          "hash": "7134726600216087281"
-        },
-        {
-          "file": "libs/db/project.json",
-          "hash": "15641054465657143543"
-        },
-        {
-          "file": "libs/db/src/index.ts",
-          "hash": "11167288476501643218"
-        }
-      ],
-      "@ecommerce/common-bootstrap": [
         {
-          "file": "libs/common-bootstrap/package.json",
-          "hash": "2983053574236821579"
+          "file": "apps/vendor-service/src/vendors/vendors.service.spec.ts",
+          "hash": "7306166017423015586"
         },
         {
-          "file": "libs/common-bootstrap/project.json",
-          "hash": "744443694828041372"
+          "file": "apps/vendor-service/src/vendors/vendors.service.ts",
+          "hash": "704206702793058423"
         },
         {
-          "file": "libs/common-bootstrap/src/index.ts",
-          "hash": "14516397234161855242"
+          "file": "apps/vendor-service/tsconfig.app.json",
+          "hash": "13603567910914431119"
         }
       ],
       "@ecommerce/auth": [
@@ -624,6 +390,386 @@
           "file": "libs/auth/src/strategies/temp-runtime.strategy.ts",
           "hash": "11104718256733097810"
         }
+      ],
+      "@ecommerce/contracts": [
+        {
+          "file": "libs/contracts/package.json",
+          "hash": "5308797434166471113"
+        },
+        {
+          "file": "libs/contracts/project.json",
+          "hash": "15103688834620153017"
+        },
+        {
+          "file": "libs/contracts/src/index.ts",
+          "hash": "2857731941122367897"
+        }
+      ],
+      "payment-service": [
+        {
+          "file": "apps/payment-service/.env.example",
+          "hash": "5901792958675668152"
+        },
+        {
+          "file": "apps/payment-service/package.json",
+          "hash": "3489300269708804475"
+        },
+        {
+          "file": "apps/payment-service/project.json",
+          "hash": "4418434789340242824"
+        },
+        {
+          "file": "apps/payment-service/src/app.controller.ts",
+          "hash": "5272001962360948587"
+        },
+        {
+          "file": "apps/payment-service/src/app.module.ts",
+          "hash": "11193525178028713227"
+        },
+        {
+          "file": "apps/payment-service/src/data-source.ts",
+          "hash": "3509998167028978763"
+        },
+        {
+          "file": "apps/payment-service/src/main.ts",
+          "hash": "3727008028035511514"
+        },
+        {
+          "file": "apps/payment-service/src/payment/dto/create-connect-account.dto.ts",
+          "hash": "11028299804600518827"
+        },
+        {
+          "file": "apps/payment-service/src/payment/dto/create-customer.dto.ts",
+          "hash": "12816570116256886464"
+        },
+        {
+          "file": "apps/payment-service/src/payment/dto/create-onboarding-link.dto.ts",
+          "hash": "13792432924533443364"
+        },
+        {
+          "file": "apps/payment-service/src/payment/dto/create-payment-intent.dto.ts",
+          "hash": "2072487759995407464"
+        },
+        {
+          "file": "apps/payment-service/src/payment/entities/payment-history.entity.ts",
+          "hash": "16464152168156383125"
+        },
+        {
+          "file": "apps/payment-service/src/payment/guards/internal-service.guard.ts",
+          "hash": "14997601869637334004"
+        },
+        {
+          "file": "apps/payment-service/src/payment/payment.controller.ts",
+          "hash": "923716649274007801"
+        },
+        {
+          "file": "apps/payment-service/src/payment/payment.module.ts",
+          "hash": "2470686660116947768"
+        },
+        {
+          "file": "apps/payment-service/src/payment/payment.service.ts",
+          "hash": "5370168074222515062"
+        },
+        {
+          "file": "apps/payment-service/tsconfig.app.json",
+          "hash": "14252926812005709935"
+        }
+      ],
+      "@ecommerce/db": [
+        {
+          "file": "libs/db/migrations/admin-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/migrations/auth-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/migrations/catalog-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/migrations/catalog-service/1713610000000-add-product-vendor-id.ts",
+          "hash": "17667566552894005234"
+        },
+        {
+          "file": "libs/db/migrations/inventory-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/migrations/inventory-service/1713610001000-add-inventory-reservation-support.ts",
+          "hash": "17004679428887216461"
+        },
+        {
+          "file": "libs/db/migrations/order-service/1713610002000-create-orders.ts",
+          "hash": "12336653304038447814"
+        },
+        {
+          "file": "libs/db/migrations/order-service/1713610003000-add-order-payment-intent-id.ts",
+          "hash": "18231696481742130185"
+        },
+        {
+          "file": "libs/db/migrations/order-service/1713610005000-create-processed-events.ts",
+          "hash": "6392244379694282080"
+        },
+        {
+          "file": "libs/db/migrations/payment-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/migrations/payment-service/1713610004000-create-payment-history.ts",
+          "hash": "2361014075126656498"
+        },
+        {
+          "file": "libs/db/migrations/user-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/migrations/vendor-service/.gitkeep",
+          "hash": "4055606894390288348"
+        },
+        {
+          "file": "libs/db/package.json",
+          "hash": "7134726600216087281"
+        },
+        {
+          "file": "libs/db/project.json",
+          "hash": "15641054465657143543"
+        },
+        {
+          "file": "libs/db/src/index.ts",
+          "hash": "11167288476501643218"
+        }
+      ],
+      "inventory-service": [
+        {
+          "file": "apps/inventory-service/.env.example",
+          "hash": "10147630467377002690"
+        },
+        {
+          "file": "apps/inventory-service/package.json",
+          "hash": "11327504200090108942"
+        },
+        {
+          "file": "apps/inventory-service/project.json",
+          "hash": "6086091167404108881"
+        },
+        {
+          "file": "apps/inventory-service/src/app.controller.ts",
+          "hash": "2598764785184359869"
+        },
+        {
+          "file": "apps/inventory-service/src/app.module.ts",
+          "hash": "14605049906572849328"
+        },
+        {
+          "file": "apps/inventory-service/src/data-source.ts",
+          "hash": "9059035605544192257"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/dto/create-inventory.dto.ts",
+          "hash": "4268597144928427253"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/dto/reservation.dto.ts",
+          "hash": "10774135537678715935"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/dto/update-inventory.dto.ts",
+          "hash": "15227327533422186965"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/entities/inventory-reservation.entity.ts",
+          "hash": "6455427203574973639"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/entities/inventory.entity.ts",
+          "hash": "359206105081123920"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/guards/internal-service.guard.ts",
+          "hash": "5654792618926711057"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/inventory.controller.ts",
+          "hash": "7284778665460889001"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/inventory.module.ts",
+          "hash": "16943766926168737458"
+        },
+        {
+          "file": "apps/inventory-service/src/inventory/inventory.service.ts",
+          "hash": "16891239888497079896"
+        },
+        {
+          "file": "apps/inventory-service/src/main.ts",
+          "hash": "6014552830184229511"
+        },
+        {
+          "file": "apps/inventory-service/tsconfig.app.json",
+          "hash": "6509516154862497086"
+        }
+      ],
+      "user-service": [
+        {
+          "file": "apps/user-service/.env.example",
+          "hash": "11555553749132587263"
+        },
+        {
+          "file": "apps/user-service/package.json",
+          "hash": "7680394324882868849"
+        },
+        {
+          "file": "apps/user-service/project.json",
+          "hash": "4143710373474399420"
+        },
+        {
+          "file": "apps/user-service/src/app.controller.ts",
+          "hash": "10797490931809833569"
+        },
+        {
+          "file": "apps/user-service/src/app.module.ts",
+          "hash": "8290534881408086749"
+        },
+        {
+          "file": "apps/user-service/src/data-source.ts",
+          "hash": "5408998813255339730"
+        },
+        {
+          "file": "apps/user-service/src/main.ts",
+          "hash": "11846084390572607864"
+        },
+        {
+          "file": "apps/user-service/tsconfig.app.json",
+          "hash": "13994704626357194330"
+        }
+      ],
+      "@ecommerce/common-bootstrap": [
+        {
+          "file": "libs/common-bootstrap/package.json",
+          "hash": "2983053574236821579"
+        },
+        {
+          "file": "libs/common-bootstrap/project.json",
+          "hash": "744443694828041372"
+        },
+        {
+          "file": "libs/common-bootstrap/src/index.ts",
+          "hash": "14516397234161855242"
+        }
+      ],
+      "auth-service": [
+        {
+          "file": "apps/auth-service/.env.example",
+          "hash": "2302786882701934816"
+        },
+        {
+          "file": "apps/auth-service/package.json",
+          "hash": "2248069076141705586"
+        },
+        {
+          "file": "apps/auth-service/project.json",
+          "hash": "6084817507413527756"
+        },
+        {
+          "file": "apps/auth-service/src/app.controller.ts",
+          "hash": "16052496669129028247"
+        },
+        {
+          "file": "apps/auth-service/src/app.module.ts",
+          "hash": "9666139847311730695"
+        },
+        {
+          "file": "apps/auth-service/src/auth/auth.controller.ts",
+          "hash": "12266926168433294492"
+        },
+        {
+          "file": "apps/auth-service/src/auth/auth.module.ts",
+          "hash": "12793310696633273970"
+        },
+        {
+          "file": "apps/auth-service/src/auth/auth.service.ts",
+          "hash": "9207918087903465949"
+        },
+        {
+          "file": "apps/auth-service/src/auth/dto/auth.dto.ts",
+          "hash": "17822225927354789988"
+        },
+        {
+          "file": "apps/auth-service/src/auth/dto/response.dto.ts",
+          "hash": "16858451350946949810"
+        },
+        {
+          "file": "apps/auth-service/src/auth/guards/internal-service.guard.ts",
+          "hash": "12815592423044536385"
+        },
+        {
+          "file": "apps/auth-service/src/data-source.ts",
+          "hash": "4772652629038375335"
+        },
+        {
+          "file": "apps/auth-service/src/main.ts",
+          "hash": "4981472035311064588"
+        },
+        {
+          "file": "apps/auth-service/tsconfig.app.json",
+          "hash": "581202081415130236"
+        }
+      ],
+      "admin-service": [
+        {
+          "file": "apps/admin-service/.env.example",
+          "hash": "17420515244798984181"
+        },
+        {
+          "file": "apps/admin-service/package.json",
+          "hash": "1598835702245378102"
+        },
+        {
+          "file": "apps/admin-service/project.json",
+          "hash": "18070998762830544398"
+        },
+        {
+          "file": "apps/admin-service/src/admin/admin.controller.ts",
+          "hash": "6721632718363350356"
+        },
+        {
+          "file": "apps/admin-service/src/admin/admin.module.ts",
+          "hash": "16095099427891812892"
+        },
+        {
+          "file": "apps/admin-service/src/admin/admin.service.ts",
+          "hash": "2168887150333833097"
+        },
+        {
+          "file": "apps/admin-service/src/admin/dto/create-admin.dto.ts",
+          "hash": "14919260274426552537"
+        },
+        {
+          "file": "apps/admin-service/src/admin/dto/response.dto.ts",
+          "hash": "16015635727369269654"
+        },
+        {
+          "file": "apps/admin-service/src/app.controller.ts",
+          "hash": "10459688243998407424"
+        },
+        {
+          "file": "apps/admin-service/src/app.module.ts",
+          "hash": "8047365375576677964"
+        },
+        {
+          "file": "apps/admin-service/src/data-source.ts",
+          "hash": "3809038660621317577"
+        },
+        {
+          "file": "apps/admin-service/src/main.ts",
+          "hash": "4769145993336647055"
+        },
+        {
+          "file": "apps/admin-service/tsconfig.app.json",
+          "hash": "15171038887364736435"
+        }
       ]
     },
     "nonProjectFiles": [
@@ -657,11 +803,11 @@
       },
       {
         "file": "README.md",
-        "hash": "1358980131641243238"
+        "hash": "9076138987030633978"
       },
       {
         "file": "docker-compose.yml",
-        "hash": "570861605131088692"
+        "hash": "11521167254886325288"
       },
       {
         "file": "eslint.config.mjs",
@@ -673,7 +819,7 @@
       },
       {
         "file": "nest-cli.json",
-        "hash": "4990644708952090205"
+        "hash": "11971254480711111733"
       },
       {
         "file": "nx.json",
@@ -681,11 +827,15 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "7605276588716562197"
+        "hash": "11908572463936524462"
       },
       {
         "file": "package.json",
-        "hash": "13004522855383608654"
+        "hash": "5255906704789652901"
+      },
+      {
+        "file": "scripts/load/inventory-reservation.k6.js",
+        "hash": "3679129712229939994"
       },
       {
         "file": "tsconfig.build.json",
@@ -697,5 +847,5 @@
       }
     ]
   },
-  "externalNodesHash": "3151427983216097499"
+  "externalNodesHash": "16777077470417093854"
 }

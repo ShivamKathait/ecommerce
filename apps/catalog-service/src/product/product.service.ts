@@ -9,6 +9,7 @@ import { Update } from 'src/common/interface';
 import { Listing } from './dto/listing.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { Role } from 'src/common/utils';
 
 @Injectable()
 export class ProductService {
@@ -20,117 +21,122 @@ export class ProductService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async create(dto: CreateProductDto) {
-    try {
-      const product = await this.productModel.save(dto);
-      // Clear all product listing caches when new product is created
-      await this.clearProductListingCache();
-      const data = { message: 'Product Created successfully.', product };
-      return { data };
-    } catch (error) {
-      throw error;
-    }
+  async create(dto: CreateProductDto, vendorId: number) {
+    const product = await this.productModel.save({ ...dto, vendor_id: vendorId });
+    await this.clearProductListingCache();
+    const data = { message: 'Product Created successfully.', product };
+    return { data };
   }
 
-  async update(product_id: number, dto: UpdateProductDto) {
-    try {
-      const { name, description, price } = dto;
-      const is_product = await this.productModel.findOneBy({ id: +product_id });
-      if (!is_product) throw new Errors.ProductNotFound();
-      const update: Update = {};
-      if (name) update.name = name;
-      if (description) update.description = description;
-      if (price) update.price = price;
-      const product = await this.productModel.save({
-        id: is_product.id,
-        ...update,
-      });
-      // Clear all product listing caches when product is updated
-      await this.clearProductListingCache();
-      const data = { message: 'Product updated successfully.', product };
-      return { data };
-    } catch (error) {
-      throw error;
-    }
+  async update(
+    productId: number,
+    dto: UpdateProductDto,
+    actor: { id: number; role: Role },
+  ) {
+    const { name, description, price } = dto;
+    const product = await this.productModel.findOneBy({ id: productId });
+    if (!product) throw new Errors.ProductNotFound();
+    this.assertOwnerOrAdmin(product, actor);
+
+    const update: Update = {};
+    if (name) update.name = name;
+    if (description) update.description = description;
+    if (price) update.price = price;
+    const updated = await this.productModel.save({
+      id: product.id,
+      ...update,
+    });
+    await this.clearProductListingCache();
+    const data = { message: 'Product updated successfully.', product: updated };
+    return { data };
   }
 
   async listing(dto: Listing) {
-    try {
-      const limit = +dto.limit || 10;
-      const page = +dto.pagination || 1;
-      const cacheKey = `products:listing:${page}:${limit}`;
+    const limit = +dto.limit || 10;
+    const page = +dto.pagination || 1;
+    const vendorId = dto.vendor_id ? +dto.vendor_id : undefined;
+    const cacheKey = `products:listing:${page}:${limit}:vendor:${vendorId ?? 'all'}`;
 
-      // Try to get from cache first
-      const cachedResult = await this.cacheManager.get(cacheKey);
-      if (cachedResult) {
-        return cachedResult;
-      }
-
-      const skip = (page - 1) * limit;
-      const [items, total] = await this.productModel.findAndCount({
-        skip,
-        take: limit,
-        order: { created_at: 'DESC' }, // optional: sort by created_at
-      });
-
-      const result = {
-        data: items,
-        meta: {
-          total,
-          page,
-          limit,
-          totalPages: Math.ceil(total / limit),
-        },
-      };
-
-      // Cache the result for 5 minutes (300 seconds)
-      await this.cacheManager.set(cacheKey, result, 300000);
-
-      return result;
-    } catch (error) {
-      throw error;
+    const cachedResult = await this.cacheManager.get(cacheKey);
+    if (cachedResult) {
+      return cachedResult;
     }
+
+    const skip = (page - 1) * limit;
+    const [items, total] = await this.productModel.findAndCount({
+      where: vendorId ? { vendor_id: vendorId } : {},
+      skip,
+      take: limit,
+      order: { created_at: 'DESC' },
+    });
+
+    const result = {
+      data: items,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+
+    await this.cacheManager.set(cacheKey, result, 300000);
+    return result;
   }
 
   async detail(product_id: number) {
-    try {
-      const is_product = await this.productModel.findOne({
-        where: { id: +product_id },
-      });
-      if (!is_product) throw new Errors.ProductNotFound();
-      return { data: is_product };
-    } catch (error) {
-      throw error;
-    }
+    const is_product = await this.productModel.findOne({
+      where: { id: +product_id },
+    });
+    if (!is_product) throw new Errors.ProductNotFound();
+    return { data: is_product };
   }
 
-  async delete(product_id: number) {
-    try {
-      const is_product = await this.productModel.findOneBy({ id: +product_id });
-      if (!is_product) throw new Errors.ProductNotFound();
-      await this.productModel.delete({ id: is_product.id });
-      // Clear all product listing caches when product is deleted
-      await this.clearProductListingCache();
-      const data = { message: 'Product removed successfully.' };
-      return { data };
-    } catch (error) {
-      throw error;
-    }
+  async delete(productId: number, actor: { id: number; role: Role }) {
+    const product = await this.productModel.findOneBy({ id: productId });
+    if (!product) throw new Errors.ProductNotFound();
+    this.assertOwnerOrAdmin(product, actor);
+    await this.productModel.delete({ id: product.id });
+    await this.clearProductListingCache();
+    const data = { message: 'Product removed successfully.' };
+    return { data };
   }
 
-  // Helper method to clear all product listing caches
+  async listVendorProducts(vendorId: number, dto: Listing) {
+    return this.listing({
+      ...dto,
+      vendor_id: String(vendorId),
+    });
+  }
+
   private async clearProductListingCache() {
-    // Since we don't know all possible cache keys, we'll use a pattern
-    // In a production app, you might want to use Redis SCAN or maintain a list of keys
-    // For simplicity, we'll clear cache by trying common patterns
     const commonLimits = [5, 10, 20, 50, 100];
-    const commonPages = [1, 2, 3, 4, 5]; // Clear first few pages
+    const commonPages = [1, 2, 3, 4, 5];
 
     for (const limit of commonLimits) {
       for (const page of commonPages) {
-        const cacheKey = `products:listing:${page}:${limit}`;
-        await this.cacheManager.del(cacheKey);
+        const allKey = `products:listing:${page}:${limit}:vendor:all`;
+        await this.cacheManager.del(allKey);
+
+        const vendorProducts = await this.productModel.find({
+          select: { vendor_id: true },
+          take: 200,
+        });
+        const vendorIds = new Set(vendorProducts.map((x) => x.vendor_id));
+        for (const vendorId of vendorIds) {
+          const cacheKey = `products:listing:${page}:${limit}:vendor:${vendorId}`;
+          await this.cacheManager.del(cacheKey);
+        }
       }
+    }
+  }
+
+  private assertOwnerOrAdmin(product: Product, actor: { id: number; role: Role }) {
+    if (actor.role === Role.ADMIN) {
+      return;
+    }
+    if (product.vendor_id !== actor.id) {
+      throw new Errors.ForbiddenProductAccess();
     }
   }
 }

@@ -24,11 +24,23 @@
       "apps/admin-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/admin-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/admin-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/admin-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/admin-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/admin-service/package.json",
       "nx/core/package-json"
     ],
@@ -162,11 +174,23 @@
       "apps/auth-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/auth-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/auth-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/auth-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/auth-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/auth-service/package.json",
       "nx/core/package-json"
     ],
@@ -300,11 +324,23 @@
       "apps/catalog-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/catalog-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/catalog-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/catalog-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/catalog-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/catalog-service/package.json",
       "nx/core/package-json"
     ],
@@ -438,11 +474,23 @@
       "apps/inventory-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/inventory-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/inventory-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/inventory-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/inventory-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/inventory-service/package.json",
       "nx/core/package-json"
     ],
@@ -551,6 +599,156 @@
       "nx/target-defaults"
     ]
   },
+  "apps/order-service": {
+    "root": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:private": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageMain": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "apps/order-service/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.type:app": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.scope:order": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.command": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.executor": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.options": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve.options.command": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve:prod": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve:prod.executor": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve:prod.dependsOn": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve:prod.options": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.serve:prod.options.command": [
+      "apps/order-service/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.cache": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.inputs": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.build.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.serve.cache": [
+      "nx.json",
+      "nx/target-defaults"
+    ],
+    "targets.serve.parallelism": [
+      "nx.json",
+      "nx/target-defaults"
+    ]
+  },
   "apps/payment-service": {
     "root": [
       "apps/payment-service/project.json",
@@ -576,11 +774,23 @@
       "apps/payment-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/payment-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/payment-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/payment-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/payment-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/payment-service/package.json",
       "nx/core/package-json"
     ],
@@ -714,11 +924,23 @@
       "apps/user-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/user-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/user-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/user-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/user-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/user-service/package.json",
       "nx/core/package-json"
     ],
@@ -852,11 +1074,23 @@
       "apps/vendor-service/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "apps/vendor-service/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "apps/vendor-service/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "apps/vendor-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "apps/vendor-service/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "apps/vendor-service/package.json",
       "nx/core/package-json"
     ],
@@ -990,11 +1224,23 @@
       "libs/auth/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "libs/auth/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "libs/auth/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "libs/auth/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "libs/auth/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "libs/auth/package.json",
       "nx/core/package-json"
     ],
@@ -1052,11 +1298,23 @@
       "libs/common-bootstrap/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "libs/common-bootstrap/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "libs/common-bootstrap/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "libs/common-bootstrap/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "libs/common-bootstrap/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "libs/common-bootstrap/package.json",
       "nx/core/package-json"
     ],
@@ -1114,11 +1372,23 @@
       "libs/common-config/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "libs/common-config/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "libs/common-config/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "libs/common-config/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "libs/common-config/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "libs/common-config/package.json",
       "nx/core/package-json"
     ],
@@ -1176,11 +1446,23 @@
       "libs/contracts/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "libs/contracts/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "libs/contracts/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "libs/contracts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "libs/contracts/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "libs/contracts/package.json",
       "nx/core/package-json"
     ],
@@ -1238,11 +1520,23 @@
       "libs/db/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "libs/db/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "libs/db/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "libs/db/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "libs/db/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "libs/db/package.json",
       "nx/core/package-json"
     ],
@@ -1300,11 +1594,23 @@
       "libs/shared/package.json",
       "nx/core/package-json"
     ],
+    "metadata.description": [
+      "libs/shared/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "libs/shared/package.json",
       "nx/core/package-json"
     ],
     "metadata.js.packageName": [
+      "libs/shared/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageVersion": [
+      "libs/shared/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
       "libs/shared/package.json",
       "nx/core/package-json"
     ],

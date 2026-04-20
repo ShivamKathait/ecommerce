@@ -3060,6 +3060,11 @@
     "type": "static"
   },
   {
+    "source": "npm:@types/amqplib",
+    "target": "npm:@types/node",
+    "type": "static"
+  },
+  {
     "source": "npm:@types/babel__core",
     "target": "npm:@babel/parser",
     "type": "static"
@@ -4257,6 +4262,11 @@
   {
     "source": "npm:ajv-keywords",
     "target": "npm:ajv",
+    "type": "static"
+  },
+  {
+    "source": "npm:amqplib",
+    "target": "npm:buffer-more-ints",
     "type": "static"
   },
   {

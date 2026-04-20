@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 import { InventoryStatus } from 'src/common/utils';
 
@@ -13,10 +14,14 @@ export class Inventory {
   id: number;
 
   @Column()
+  @Index('ux_inventory_product_id', { unique: true })
   product_id: number;
 
   @Column({ type: 'int', default: 0 })
   quantity: number;
+
+  @Column({ type: 'int', default: 0 })
+  reserved_quantity: number;
 
   @Column({ type: 'int', name: 'low_stock_threshold', default: 5 })
   lowStockThreshold: number;
@@ -39,14 +44,16 @@ export class Inventory {
 
   // Helper method to update status based on quantity
   updateStatus() {
+    const available = this.quantity - this.reserved_quantity;
+
     if (!this.trackInventory) {
       this.status = InventoryStatus.IN_STOCK;
       return;
     }
 
-    if (this.quantity <= 0) {
+    if (available <= 0) {
       this.status = InventoryStatus.OUT_OF_STOCK;
-    } else if (this.quantity <= this.lowStockThreshold) {
+    } else if (available <= this.lowStockThreshold) {
       this.status = InventoryStatus.LOW_STOCK;
     } else {
       this.status = InventoryStatus.IN_STOCK;

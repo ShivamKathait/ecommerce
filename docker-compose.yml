@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
   postgres:
@@ -8,11 +8,11 @@ services:
       POSTGRES_PASSWORD: strongpassword123
       POSTGRES_DB: learningPostgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -20,13 +20,24 @@ services:
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ['CMD', 'redis-cli', 'ping']
       interval: 10s
       timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    healthcheck:
+      test: ['CMD', 'rabbitmq-diagnostics', 'check_running']
+      interval: 10s
+      timeout: 10s
       retries: 5
 
   auth-service:
@@ -38,7 +49,7 @@ services:
     env_file:
       - apps/auth-service/.env
     ports:
-      - "3008:3008"
+      - '3008:3008'
     depends_on:
       postgres:
         condition: service_healthy
@@ -54,7 +65,7 @@ services:
     env_file:
       - apps/admin-service/.env
     ports:
-      - "3007:3007"
+      - '3007:3007'
     depends_on:
       postgres:
         condition: service_healthy
@@ -70,7 +81,7 @@ services:
     env_file:
       - apps/user-service/.env
     ports:
-      - "3002:3002"
+      - '3002:3002'
     depends_on:
       postgres:
         condition: service_healthy
@@ -86,7 +97,7 @@ services:
     env_file:
       - apps/vendor-service/.env
     ports:
-      - "3005:3005"
+      - '3005:3005'
     depends_on:
       postgres:
         condition: service_healthy
@@ -102,7 +113,7 @@ services:
     env_file:
       - apps/catalog-service/.env
     ports:
-      - "3003:3003"
+      - '3003:3003'
     depends_on:
       postgres:
         condition: service_healthy
@@ -118,7 +129,7 @@ services:
     env_file:
       - apps/inventory-service/.env
     ports:
-      - "3004:3004"
+      - '3004:3004'
     depends_on:
       postgres:
         condition: service_healthy
@@ -134,9 +145,29 @@ services:
     env_file:
       - apps/payment-service/.env
     ports:
-      - "3006:3006"
+      - '3006:3006'
     depends_on:
       postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  order-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        APP_NAME: order-service
+    env_file:
+      - apps/order-service/.env
+    ports:
+      - '3009:3009'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
 
 volumes:

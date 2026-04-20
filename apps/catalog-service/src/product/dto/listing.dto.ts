@@ -11,4 +11,9 @@ export class Listing {
   @IsString()
   @IsOptional()
   limit: string;
+
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  vendor_id?: string;
 }

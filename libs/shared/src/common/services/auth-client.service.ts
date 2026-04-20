@@ -3,6 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
 import { Role } from '../utils';
+import { getInternalServiceHeaders } from './internal-service-headers.util';
+
+type AuthApiResponse = Record<string, unknown>;
 
 @Injectable()
 export class AuthClientService {
@@ -13,27 +16,33 @@ export class AuthClientService {
 
   async loginAdmin(email: string, password: string) {
     const response = await firstValueFrom(
-      this.httpService.post(`${this.getBaseUrl()}/v1/auth/login/admin`, {
-        email,
-        password,
-      }),
+      this.httpService.post<AuthApiResponse>(
+        `${this.getBaseUrl()}/v1/auth/login/admin`,
+        {
+          email,
+          password,
+        },
+      ),
     );
     return response.data;
   }
 
   async loginVendor(email: string, password: string) {
     const response = await firstValueFrom(
-      this.httpService.post(`${this.getBaseUrl()}/v1/auth/login/vendor`, {
-        email,
-        password,
-      }),
+      this.httpService.post<AuthApiResponse>(
+        `${this.getBaseUrl()}/v1/auth/login/vendor`,
+        {
+          email,
+          password,
+        },
+      ),
     );
     return response.data;
   }
 
   async updateUserRole(userId: number, role: Role) {
     const response = await firstValueFrom(
-      this.httpService.patch(
+      this.httpService.patch<AuthApiResponse>(
         `${this.getBaseUrl()}/v1/auth/users/${userId}/role`,
         { role },
         { headers: this.getInternalHeaders() },
@@ -50,11 +59,6 @@ export class AuthClientService {
   }
 
   private getInternalHeaders() {
-    const token = this.configService.get<string>('INTERNAL_SERVICE_TOKEN');
-    if (!token) {
-      throw new Error('INTERNAL_SERVICE_TOKEN is not configured');
-    }
-
-    return { 'x-internal-token': token };
+    return getInternalServiceHeaders(this.configService);
   }
 }

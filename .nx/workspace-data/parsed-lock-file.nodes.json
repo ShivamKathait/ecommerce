@@ -2619,6 +2619,15 @@
         "hash": "sha512-6+7nlbMVX/PVDCwaIQ8nTOPveOcFLSt8GcXdx8hD0bt39uWxYT88uXzqTd4fTvqta7oeUJqudepapKNt2DYJFw=="
       }
     },
+    "npm:@types/amqplib": {
+      "type": "npm",
+      "name": "npm:@types/amqplib",
+      "data": {
+        "version": "0.10.8",
+        "packageName": "@types/amqplib",
+        "hash": "sha512-vtDp8Pk1wsE/AuQ8/Rgtm6KUZYqcnTgNvEHwzCkX8rL7AGsC6zqAfKAAJhUZXFhM/Pp++tbnUHiam/8vVpPztA=="
+      }
+    },
     "npm:@types/babel__core": {
       "type": "npm",
       "name": "npm:@types/babel__core",
@@ -3474,6 +3483,15 @@
         "hash": "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ=="
       }
     },
+    "npm:amqplib": {
+      "type": "npm",
+      "name": "npm:amqplib",
+      "data": {
+        "version": "1.0.3",
+        "packageName": "amqplib",
+        "hash": "sha512-nsrXa59tvX4HPjPPW8JJGuBb/Db0MOq3DOhGdSbIY7bTsQDMV2fmF9c3i74g/8Gt9+QWyrxfEPppOOoV9lK1uQ=="
+      }
+    },
     "npm:ansi-align": {
       "type": "npm",
       "name": "npm:ansi-align",
@@ -3949,6 +3967,15 @@
         "version": "1.1.2",
         "packageName": "buffer-from",
         "hash": "sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ=="
+      }
+    },
+    "npm:buffer-more-ints": {
+      "type": "npm",
+      "name": "npm:buffer-more-ints",
+      "data": {
+        "version": "1.0.0",
+        "packageName": "buffer-more-ints",
+        "hash": "sha512-EMetuGFz5SLsT0QTnXzINh4Ksr+oo4i+UGTXEshiGCQWnsgSs7ZhJ8fzlwQ+OzEMs0MpDAMr1hxnblp5a4vcHg=="
       }
     },
     "npm:busboy": {
@@ -9048,6 +9075,7 @@
     "node_modules/@tsconfig/node14": "npm:@tsconfig/node14",
     "node_modules/@tsconfig/node16": "npm:@tsconfig/node16",
     "node_modules/@tybys/wasm-util": "npm:@tybys/wasm-util",
+    "node_modules/@types/amqplib": "npm:@types/amqplib",
     "node_modules/@types/babel__core": "npm:@types/babel__core",
     "node_modules/@types/babel__generator": "npm:@types/babel__generator",
     "node_modules/@types/babel__template": "npm:@types/babel__template",
@@ -9173,6 +9201,7 @@
     "node_modules/ajv-formats/node_modules/ajv": "npm:ajv@8.17.1",
     "node_modules/ajv-formats/node_modules/json-schema-traverse": "npm:json-schema-traverse@1.0.0",
     "node_modules/ajv-keywords": "npm:ajv-keywords",
+    "node_modules/amqplib": "npm:amqplib",
     "node_modules/ansi-align": "npm:ansi-align",
     "node_modules/ansi-colors": "npm:ansi-colors",
     "node_modules/ansi-escapes": "npm:ansi-escapes",
@@ -9227,6 +9256,7 @@
     "node_modules/buffer-crc32": "npm:buffer-crc32",
     "node_modules/buffer-equal-constant-time": "npm:buffer-equal-constant-time",
     "node_modules/buffer-from": "npm:buffer-from",
+    "node_modules/buffer-more-ints": "npm:buffer-more-ints",
     "node_modules/busboy": "npm:busboy",
     "node_modules/bytes": "npm:bytes",
     "node_modules/cache-manager": "npm:cache-manager",

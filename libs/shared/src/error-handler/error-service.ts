@@ -83,3 +83,30 @@ export class AlreadyVendor extends HttpException {
     super('User is already a registered vendor.', HttpStatus.BAD_REQUEST);
   }
 }
+
+export class ForbiddenProductAccess extends HttpException {
+  constructor() {
+    super(
+      'You are not allowed to access this product.',
+      HttpStatus.FORBIDDEN,
+    );
+  }
+}
+
+export class InventoryReservationNotFound extends HttpException {
+  constructor() {
+    super('Inventory reservation not found.', HttpStatus.BAD_REQUEST);
+  }
+}
+
+export class OrderNotFound extends HttpException {
+  constructor() {
+    super('Order not found.', HttpStatus.NOT_FOUND);
+  }
+}
+
+export class InvalidOrderState extends HttpException {
+  constructor(message = 'Invalid order state.') {
+    super(message, HttpStatus.BAD_REQUEST);
+  }
+}

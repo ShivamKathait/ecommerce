@@ -8,6 +8,8 @@ import {
   Delete,
   UseGuards,
   Query,
+  ParseIntPipe,
+  Req,
 } from '@nestjs/common';
 import { JwtAuthGuard, Roles, RolesGuard } from '@ecommerce/auth';
 import { ProductService } from './product.service';
@@ -38,8 +40,8 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: `Vendor create Product Api` })
   @Post()
-  create(@Body() dto: CreateProductDto) {
-    return this.productService.create(dto);
+  create(@Body() dto: CreateProductDto, @Req() req) {
+    return this.productService.create(dto, req.user.id);
   }
 
   /**
@@ -53,8 +55,21 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: `Vendor update Product Api` })
   @Patch('/:id/update')
-  update(@Param() ID: IDDto, @Body() dto: UpdateProductDto) {
-    return this.productService.update(parseInt(ID.id), dto);
+  update(@Param() ID: IDDto, @Body() dto: UpdateProductDto, @Req() req) {
+    return this.productService.update(parseInt(ID.id), dto, req.user);
+  }
+
+  @ApiBearerAuth('authorization')
+  @Roles(Role.VENDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiOperation({ summary: `Vendor update Product Api` })
+  @Patch(':id')
+  updateById(
+    @Param('id', ParseIntPipe) productId: number,
+    @Body() dto: UpdateProductDto,
+    @Req() req,
+  ) {
+    return this.productService.update(productId, dto, req.user);
   }
 
   /**
@@ -62,9 +77,6 @@ export class ProductController {
    * @param {Listing} dto - component data to save
    * @returns
    */
-  // @ApiBearerAuth("authorization")
-  // @Roles(Role.VENDOR)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
   @ApiOperation({ summary: `Product listing Api` })
   @Get('listing')
@@ -72,18 +84,37 @@ export class ProductController {
     return this.productService.listing(dto);
   }
 
+  @ApiConsumes('application/json', 'application/x-www-form-urlencoded')
+  @ApiOperation({ summary: `Product listing Api` })
+  @Get()
+  async list(@Query() dto: Listing) {
+    return this.productService.listing(dto);
+  }
+
+  @ApiBearerAuth('authorization')
+  @Roles(Role.VENDOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiOperation({ summary: `Vendor own products Api` })
+  @Get('vendor/me')
+  async listMyProducts(@Req() req, @Query() dto: Listing) {
+    return this.productService.listVendorProducts(req.user.id, dto);
+  }
+
   /**
    * vendor will create product here
    * @param {CreateProductDto} dto  -
    * @returns
    */
-  // @ApiBearerAuth("authorization")
-  // @Roles(Role.VENDOR)
-  // @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: `Product detail Api` })
   @Get('/:id/detail')
   detail(@Param() ID: IDDto) {
     return this.productService.detail(parseInt(ID.id));
+  }
+
+  @ApiOperation({ summary: `Product detail Api` })
+  @Get(':id')
+  detailById(@Param('id', ParseIntPipe) productId: number) {
+    return this.productService.detail(productId);
   }
 
   /**
@@ -97,7 +128,7 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: `Vendor delete Product Api` })
   @Delete('/:id')
-  delete(@Param() ID: IDDto) {
-    return this.productService.delete(parseInt(ID.id));
+  delete(@Param() ID: IDDto, @Req() req) {
+    return this.productService.delete(parseInt(ID.id), req.user);
   }
 }

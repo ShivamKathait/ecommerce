@@ -1,0 +1,7 @@
+{
+  "name": "@ecommerce/order-service",
+  "private": true,
+  "main": "../../dist/apps/order-service/main.js",
+  "types": "../../dist/apps/order-service/main.d.ts"
+}
+

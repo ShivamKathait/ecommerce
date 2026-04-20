@@ -8,6 +8,7 @@ const DEFAULT_PORTS: Record<string, number> = {
   'inventory-service': 3004,
   'vendor-service': 3005,
   'payment-service': 3006,
+  'order-service': 3009,
 };
 
 export function getServiceConfig(serviceName: string): ServiceDescriptor {
