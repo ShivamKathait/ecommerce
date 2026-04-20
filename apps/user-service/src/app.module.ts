@@ -8,15 +8,14 @@ import { join } from 'path';
 import {
   AuthModule,
   JwtAuthGuard,
-  JwtStrategy,
   RolesGuard,
   TempAuthGuard,
-  TempStrategy,
 } from '@ecommerce/auth';
 import { AppController } from './app.controller';
 import { RateLimitGuard } from 'src/common/rate-limit.guard';
 import { ErrorHandler } from '@ecommerce/shared/error-handler/handler.services';
 import { AppDataSource } from './data-source';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -25,7 +24,7 @@ import { AppDataSource } from './data-source';
       envFilePath: [join(process.cwd(), 'apps/user-service/.env'), '.env'],
     }),
     TypeOrmModule.forRootAsync({
-      useFactory: async (config: ConfigService) => ({
+      useFactory: (config: ConfigService) => ({
         ...AppDataSource.options,
         autoLoadEntities: true,
         synchronize: config.get('NODE_ENV') !== 'production',
@@ -50,6 +49,7 @@ import { AppDataSource } from './data-source';
       max: 100,
     }),
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [

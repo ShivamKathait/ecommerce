@@ -24,6 +24,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Access Control Audit
+        run: npm run audit:access-control
+
       - name: Build all services
         run: npm run build:all
 

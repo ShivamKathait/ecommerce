@@ -23,6 +23,13 @@
     "build:vendor": "NX_DAEMON=false NX_ISOLATE_PLUGINS=false nx build vendor-service",
     "build:payment": "NX_DAEMON=false NX_ISOLATE_PLUGINS=false nx build payment-service",
     "build:order": "NX_DAEMON=false NX_ISOLATE_PLUGINS=false nx build order-service",
+    "audit:access-control": "./scripts/audit/access-control-check.sh",
+    "ops:db:backup": "./scripts/ops/db-backup.sh",
+    "ops:db:restore": "./scripts/ops/db-restore.sh",
+    "ops:dlq:replay": "node ./scripts/ops/replay-dlq.js",
+    "load:inventory": "k6 run ./scripts/load/inventory-reservation.k6.js",
+    "load:orders": "k6 run ./scripts/load/order-checkout.k6.js",
+    "load:payments": "k6 run ./scripts/load/payment-intents.k6.js",
     "migration:run:auth": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/auth-service/src/data-source.ts",
     "migration:run:admin": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/admin-service/src/data-source.ts",
     "migration:run:user": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d apps/user-service/src/data-source.ts",
@@ -132,6 +139,15 @@
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "^@ecommerce/auth$": "<rootDir>/libs/auth/src",
+      "^@ecommerce/contracts$": "<rootDir>/libs/contracts/src",
+      "^@ecommerce/common-bootstrap$": "<rootDir>/libs/common-bootstrap/src",
+      "^@ecommerce/common-config$": "<rootDir>/libs/common-config/src",
+      "^@ecommerce/db$": "<rootDir>/libs/db/src",
+      "^@ecommerce/shared/(.*)$": "<rootDir>/libs/shared/src/$1",
+      "^src/common/(.*)$": "<rootDir>/libs/shared/src/common/$1"
     },
     "collectCoverageFrom": [
       "**/*.(t|j)s"

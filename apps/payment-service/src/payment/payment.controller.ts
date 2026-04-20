@@ -27,12 +27,7 @@ export class PaymentController {
     @Body() dto: CreateCustomerDto,
     @Headers('idempotency-key') idempotencyKey?: string,
   ) {
-    const customerId = await this.paymentService.createCustomer(
-      dto.name,
-      dto.email,
-      idempotencyKey,
-    );
-    return { data: { customerId } };
+    return this.paymentService.createCustomer(dto, idempotencyKey);
   }
 
   @Post('connect/accounts')
@@ -41,19 +36,13 @@ export class PaymentController {
     @Body() dto: CreateConnectAccountDto,
     @Headers('idempotency-key') idempotencyKey?: string,
   ) {
-    const accountId = await this.paymentService.createConnectAccount(
-      dto.email,
-      dto.userId,
-      idempotencyKey,
-    );
-    return { data: { accountId } };
+    return this.paymentService.createConnectAccount(dto, idempotencyKey);
   }
 
   @Get('connect/accounts/:accountId')
   @ApiOperation({ summary: 'Fetch a Stripe Connect account' })
   async getConnectAccount(@Param('accountId') accountId: string) {
-    const account = await this.paymentService.retrieveConnectAccount(accountId);
-    return { data: account };
+    return this.paymentService.retrieveConnectAccount(accountId);
   }
 
   @Post('connect/accounts/:accountId/onboarding-links')
@@ -62,12 +51,7 @@ export class PaymentController {
     @Param('accountId') accountId: string,
     @Body() dto: CreateOnboardingLinkDto,
   ) {
-    const url = await this.paymentService.generateOnboardingLink(
-      accountId,
-      dto.vendorId,
-      dto.userId,
-    );
-    return { data: { url } };
+    return this.paymentService.generateOnboardingLink(accountId, dto);
   }
 
   @Post('intents')
@@ -76,23 +60,12 @@ export class PaymentController {
     @Body() dto: CreatePaymentIntentDto,
     @Headers('idempotency-key') idempotencyKey?: string,
   ) {
-    const paymentIntent = await this.paymentService.createPaymentIntent(
-      dto.amount,
-      dto.currency,
-      dto.orderId,
-      dto.userId,
-      dto.customerId,
-      idempotencyKey,
-    );
-    return { data: paymentIntent };
+    return this.paymentService.createPaymentIntent(dto, idempotencyKey);
   }
 
   @Get('intents/:paymentIntentId')
   @ApiOperation({ summary: 'Retrieve a Stripe payment intent' })
   async getPaymentIntent(@Param('paymentIntentId') paymentIntentId: string) {
-    const paymentIntent = await this.paymentService.retrievePaymentIntent(
-      paymentIntentId,
-    );
-    return { data: paymentIntent };
+    return this.paymentService.retrievePaymentIntent(paymentIntentId);
   }
 }

@@ -10,6 +10,10 @@ import { createHash } from 'crypto';
 import { Repository } from 'typeorm';
 import { PaymentHistory } from './entities/payment-history.entity';
 import { RabbitMqClientService } from 'src/common/services/rabbitmq-client.service';
+import { CreateConnectAccountDto } from './dto/create-connect-account.dto';
+import { CreateCustomerDto } from './dto/create-customer.dto';
+import { CreateOnboardingLinkDto } from './dto/create-onboarding-link.dto';
+import { CreatePaymentIntentDto } from './dto/create-payment-intent.dto';
 
 @Injectable()
 export class PaymentService {
@@ -44,19 +48,19 @@ export class PaymentService {
     this.logger.error(`payment_intent.payment_failed: ${paymentIntent.id}`);
   }
 
-  async createCustomer(name: string, email: string, idempotencyKey?: string) {
-    const normalizedEmail = email.toLowerCase();
+  async createCustomer(dto: CreateCustomerDto, idempotencyKey?: string) {
+    const normalizedEmail = dto.email.toLowerCase();
     const existing = await this.stripe.customers.list({
       email: normalizedEmail,
       limit: 1,
     });
     if (existing.data.length > 0) {
-      return existing.data[0].id;
+      return { data: { customerId: existing.data[0].id } };
     }
 
     const customer = await this.stripe.customers.create(
       {
-        name,
+        name: dto.name,
         email: normalizedEmail,
       },
       {
@@ -66,44 +70,46 @@ export class PaymentService {
       },
     );
 
-    return customer.id;
+    return { data: { customerId: customer.id } };
   }
 
   async createConnectAccount(
-    email: string,
-    userId: number,
+    dto: CreateConnectAccountDto,
     idempotencyKey?: string,
   ) {
     const account = await this.stripe.accounts.create(
       {
         type: 'express',
-        email: email.toLowerCase(),
+        email: dto.email.toLowerCase(),
         metadata: {
-          user_id: String(userId),
+          user_id: String(dto.userId),
         },
       },
       {
         idempotencyKey:
           idempotencyKey ??
-          this.buildDeterministicKey('connect-account', `${email}:${userId}`),
+          this.buildDeterministicKey(
+            'connect-account',
+            `${dto.email}:${dto.userId}`,
+          ),
       },
     );
 
-    return account.id;
+    return { data: { accountId: account.id } };
   }
 
   async retrieveConnectAccount(accountId: string) {
-    return this.stripe.accounts.retrieve(accountId);
+    const account = await this.stripe.accounts.retrieve(accountId);
+    return { data: account };
   }
 
   async generateOnboardingLink(
     accountId: string,
-    vendorId: number,
-    userId: number,
+    dto: CreateOnboardingLinkDto,
   ) {
     const account = await this.stripe.accounts.retrieve(accountId);
     const ownerUserId = account.metadata?.user_id;
-    if (ownerUserId && ownerUserId !== String(userId)) {
+    if (ownerUserId && ownerUserId !== String(dto.userId)) {
       throw new ForbiddenException(
         'Account does not belong to the requested user',
       );
@@ -116,31 +122,27 @@ export class PaymentService {
 
     const link = await this.stripe.accountLinks.create({
       account: accountId,
-      refresh_url: `${apiBaseUrl}/v1/vendors/refresh/${vendorId}`,
-      return_url: `${apiBaseUrl}/v1/vendors/complete/${vendorId}`,
+      refresh_url: `${apiBaseUrl}/v1/vendors/refresh/${dto.vendorId}`,
+      return_url: `${apiBaseUrl}/v1/vendors/complete/${dto.vendorId}`,
       type: 'account_onboarding',
     });
 
-    return link.url;
+    return { data: { url: link.url } };
   }
 
   async createPaymentIntent(
-    amount: number,
-    currency: string,
-    orderId: number,
-    userId: number,
-    customerId?: string,
+    dto: CreatePaymentIntentDto,
     idempotencyKey?: string,
   ) {
-    const normalizedCurrency = currency.toLowerCase();
+    const normalizedCurrency = dto.currency.toLowerCase();
     const intent = await this.stripe.paymentIntents.create(
       {
-        amount,
+        amount: dto.amount,
         currency: normalizedCurrency,
-        customer: customerId,
+        customer: dto.customerId,
         metadata: {
-          order_id: String(orderId),
-          user_id: String(userId),
+          order_id: String(dto.orderId),
+          user_id: String(dto.userId),
         },
         automatic_payment_methods: { enabled: true },
       },
@@ -149,28 +151,32 @@ export class PaymentService {
           idempotencyKey ??
           this.buildDeterministicKey(
             'payment-intent',
-            `${orderId}:${userId}:${amount}:${normalizedCurrency}`,
+            `${dto.orderId}:${dto.userId}:${dto.amount}:${normalizedCurrency}`,
           ),
       },
     );
 
     return {
-      id: intent.id,
-      client_secret: intent.client_secret,
-      status: intent.status,
-      amount: intent.amount,
-      currency: intent.currency,
+      data: {
+        id: intent.id,
+        client_secret: intent.client_secret,
+        status: intent.status,
+        amount: intent.amount,
+        currency: intent.currency,
+      },
     };
   }
 
   async retrievePaymentIntent(paymentIntentId: string) {
     const intent = await this.stripe.paymentIntents.retrieve(paymentIntentId);
     return {
-      id: intent.id,
-      status: intent.status,
-      amount: intent.amount,
-      currency: intent.currency,
-      metadata: intent.metadata ?? {},
+      data: {
+        id: intent.id,
+        status: intent.status,
+        amount: intent.amount,
+        currency: intent.currency,
+        metadata: intent.metadata ?? {},
+      },
     };
   }
 

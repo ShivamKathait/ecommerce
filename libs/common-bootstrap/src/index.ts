@@ -2,6 +2,7 @@ import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { NextFunction, Request, Response, json, urlencoded } from 'express';
 import {
   ServiceHealthResponse,
   ServiceReadinessResponse,
@@ -34,6 +35,30 @@ export async function bootstrapHttpService(
   app.enableCors({
     origin: corsOrigins.length > 0 ? corsOrigins : true,
     credentials: true,
+  });
+  app.disable('x-powered-by');
+  app.use(json({ limit: process.env.REQUEST_BODY_LIMIT ?? '1mb' }));
+  app.use(
+    urlencoded({
+      extended: true,
+      limit: process.env.REQUEST_BODY_LIMIT ?? '1mb',
+    }),
+  );
+  app.use((_: Request, res: Response, next: NextFunction) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'no-referrer');
+    res.setHeader(
+      'Permissions-Policy',
+      'camera=(), microphone=(), geolocation=()',
+    );
+    if (process.env.NODE_ENV === 'production') {
+      res.setHeader(
+        'Strict-Transport-Security',
+        'max-age=31536000; includeSubDomains; preload',
+      );
+    }
+    next();
   });
   if (process.env.TRUST_PROXY === 'true') {
     app.set('trust proxy', 1);

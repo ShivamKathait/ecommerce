@@ -125,6 +125,10 @@ This repository includes a practical production-readiness starter kit:
 - shared health/readiness payloads and startup logging in [index.ts](/home/shivam/personal/ecommerce/libs/common-bootstrap/src/index.ts)
 - request-level observability interceptor with request-id + latency logs
 - RabbitMQ exchange routing with retry and dead-letter queue support in shared messaging client
+- security headers and body-size limits in shared bootstrap
+- ops scripts for DB backup/restore and DLQ replay
+- access-control audit script for `/internal/*` route protection
+- production runbooks/checklists in `docs/production` and `docs/security`
 
 ## Payment And Order Event Flow
 
@@ -136,6 +140,23 @@ Current checkout/payment orchestration is event-driven:
 4. `order-service` consumes payment events idempotently (`processed_events` table).
 5. `order-service` confirms or fails/cancels orders asynchronously.
 6. `order-service` uses internal inventory endpoints (token-guarded) to confirm/release reservations without end-user JWT context.
+
+## Redis And RabbitMQ Coverage
+
+Current practical usage:
+
+- `RabbitMQ`
+  - `payment-service`: publishes payment intent events.
+  - `order-service`: consumes payment events with retries, DLQ support, and idempotent processing.
+- `Redis`
+  - `inventory-service`: reservation fast path (optional toggle `USE_REDIS_RESERVATION_PATH=true`).
+  - `auth` shared runtime: session/user cache.
+  - `catalog-service`: product listing cache.
+
+Current gaps (not full maturity yet):
+
+- Outbox/reconciliation workers are not fully implemented as always-on services.
+- Queue depth / DLQ alerting needs external monitoring stack.
 
 ## Nx Workspace
 
@@ -239,6 +260,13 @@ Your external server or reverse proxy should handle this routing.
 - `npm run migration:revert:inventory` - Revert inventory-service migration
 - `npm run migration:revert:order` - Revert order-service migration
 - `npm run migration:revert:payment` - Revert payment-service migration
+- `npm run audit:access-control` - Verify internal routes are guarded
+- `npm run ops:db:backup` - Create PostgreSQL backup (see args in script)
+- `npm run ops:db:restore` - Restore PostgreSQL backup (see args in script)
+- `npm run ops:dlq:replay` - Replay RabbitMQ DLQ messages
+- `npm run load:inventory` - Run inventory k6 load test
+- `npm run load:orders` - Run order checkout k6 load test
+- `npm run load:payments` - Run payment intents k6 load test
 - `npm run start:auth` - Start `auth-service`
 - `npm run start:admin` - Start `admin-service`
 - `npm run start:user` - Start `user-service`
